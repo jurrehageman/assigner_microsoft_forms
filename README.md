@@ -59,7 +59,7 @@ Required arguments:
 
 - Run the script:
 ```
-python3 assigner.py ../test_data/dummy_data.xlsx ../test_data/assignment.xlsx ../test_data/experiments.txt
+python3 assigner.py ./test_data/dummy_data.xlsx ./test_data/assignment.xlsx ./test_data/experiments.txt
 ```
 
 - An Excel file is generated that can be opened in Excel. The terminal output will show some statistics.
