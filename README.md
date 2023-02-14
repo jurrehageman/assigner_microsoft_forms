@@ -50,27 +50,20 @@ Required arguments:
 
 ## Example Workflow
 
-- First create a Microsoft Forms as shown below:
-
-![alt text](https://github.com/jurrehageman/assigner-forms/blob/master/images/form.png "Microsoft Form setup")
+- First create a Microsoft Forms as shown [here](https://forms.office.com/Pages/ResponsePage.aspx?id=FJCzo9x6-kihFDfCQ029aUl4zQoSS2FNpqWJwSaQQQpUNjFaOTlES05IUU9CRkdMOEcxNjI4MlJEWS4u)
 
 - Share your form to submit data. Download the data as Excel file:
 
-- Create a text file with the following layout: positions per experiment;experiment name
+- Create a text file with the following layout: positions per experiment;experiment name (see example)
 
-![alt text](https://github.com/jurrehageman/assigner-forms/blob/master/images/experiments_names.png "Experiment names")
 
 - Run the script:
-
+```
 python3 assigner.py ../test_data/dummy_data.xlsx ../test_data/assignment.xlsx ../test_data/experiments.txt
+```
 
-- Running the script using the example data will generate the following output:
+- An Excel file is generated that can be opened in Excel. The terminal output will show some statistics.
 
-![alt text](https://github.com/jurrehageman/assigner-forms/blob/master/images/terminal_output.png "Terminal Output")
-
-- An Excel file is generated that can be opened in Excel:
-
-![alt text](https://github.com/jurrehageman/assigner-forms/blob/master/images/excel_screenshot.png "Excel file opened in Excel")
 
 ## Built With
 
