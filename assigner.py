@@ -68,11 +68,13 @@ def read_microsoft_form_data(file_name):
         group = row[6]
         subgroup = row[7]
         if student_num in student_nums:
-            print("Warning: Student {naw_number} {name} already in student data.".format(student_num, name))
+            print("Warning: Student {} {} {} already in student data.".format(student_num, name, mail))
+            sys.exit(0)
         student_nums.append(student_num)
         prefs = row[8:]
         if len(prefs) != len(set(prefs)):
-            print("Warning: Student {naw_number} {name} has duplicate prefs.".format(student_num, name))
+            print("Warning: Student {} {} {} has duplicate prefs.".format(student_num, name, mail))
+            sys.exit(0)
         prefs_int = [int(str(i).split(".")[0]) for i in prefs]
         student_data = {
             'student_num': student_num,
