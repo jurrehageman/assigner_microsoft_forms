@@ -100,15 +100,8 @@ def read_experiment_data(file_name):
         row = list(row)
         exp.append({'name': row[0],
                          'capacity': int(row[1])})
-    #print(exp)
     return exp
-    # with open(file_name) as f:
-    #     exp = []
-    #     for line in f:
-    #         line = line.strip().split(';')
-    #         exp.append({'name': str(line[-1]),
-    #                     'capacity': int(line[0])})
-    # return exp
+
 
 
 def generate_pref_matrix(students):
