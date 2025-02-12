@@ -34,7 +34,7 @@ This module will generate the actual assignment
 
 Example:
 ```
-python3 assigner.py dummy_data.xlsx assignment.xlsx experiments.txt
+python3 assigner.py dummy_data.xlsx assignment.xlsx experiments.xlsx
 ```
 
 Example files are included
@@ -45,7 +45,7 @@ usage: assigner.py [-h] infile outfile experiment_names
 Required arguments:
 - infile: path to the Excel file containing the preferences
 - outfile: path to the Excel file with the assignment
-- experiment_names: a txt file with number of positions and the name of the experiments
+- experiment_names: path to the Excel file with the name of the experiments and number of positions 
 
 
 ## Example Workflow
@@ -54,12 +54,12 @@ Required arguments:
 
 - Share your form to submit data. Download the data as Excel file:
 
-- Create a text file with the following layout: positions per experiment;experiment name (see example)
+- Create an Excel with the following layout: experiment name, positions per experiment (see example)
 
 
 - Run the script:
 ```
-python3 assigner.py ./test_data/dummy_data.xlsx ./test_data/assignment.xlsx ./test_data/experiments.txt
+python3 assigner.py ./test_data/dummy_data.xlsx ./test_data/assignment.xlsx ./test_data/experiments.xlsx
 ```
 
 - An Excel file is generated that can be opened in Excel. The terminal output will show some statistics.

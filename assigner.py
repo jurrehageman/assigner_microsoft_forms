@@ -6,7 +6,7 @@ by Jurre Hageman
 Microsoft forms version
 Year: 2023
 License: GNU General Public License (GPL)
-Date: 2023-02-14
+Date: 2025-02-12
 """
 # Imports
 import sys
@@ -93,13 +93,22 @@ def read_experiment_data(file_name):
     :return: a list of dictionaries with experiment data.
     Each experiment is a dictionary. (list)
     """
-    with open(file_name) as f:
-        exp = []
-        for line in f:
-            line = line.strip().split(';')
-            exp.append({'name': str(line[-1]),
-                        'capacity': int(line[0])})
+    exp = []
+    excel_data = pd.read_excel(file_name, sheet_name="Sheet1")
+    data = pd.DataFrame(excel_data)
+    for index, row in data.iterrows():
+        row = list(row)
+        exp.append({'name': row[0],
+                         'capacity': int(row[1])})
+    #print(exp)
     return exp
+    # with open(file_name) as f:
+    #     exp = []
+    #     for line in f:
+    #         line = line.strip().split(';')
+    #         exp.append({'name': str(line[-1]),
+    #                     'capacity': int(line[0])})
+    # return exp
 
 
 def generate_pref_matrix(students):
