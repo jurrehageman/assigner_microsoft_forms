@@ -18,6 +18,7 @@ from scipy.optimize import linear_sum_assignment
 import collections
 import xlsxwriter
 import pandas as pd
+from tabulate import tabulate
 
 # Set numpy to print entire arrays
 np.set_printoptions(threshold=np.inf)
@@ -216,20 +217,32 @@ def calc_assign_statistics(student_data, exp_data):
         if student['pref_position'] != 'random':
             score += len(exp_data) - (student['pref_position'] - 1)
     ass_freq = collections.Counter(assigned)
+    data = []
     for i in sorted(ass_freq):
         capacity = exp_data[i - 1]['capacity']
-        mssg = "experiment: {}, capacity: {}, assigned: {}, left over: {}"
-        print(mssg.format(i, capacity, ass_freq[i], capacity - ass_freq[i]))
+        line = [exp_data[i-1]["name"], capacity, ass_freq[i], capacity - ass_freq[i]]
+        data.append(line)
+    table = tabulate(
+    data, 
+    headers=["Experiment", "Capacity", "Assigned", "Left over"], 
+    tablefmt="grid"
+    )
+    print(table)
     print()
+    data = []
     for i in range(len(student_data[0]['prefs'])):
         num_at_pos = [student['pref_position'] for student in student_data
                       if student['pref_position'] == i + 1].count(i + 1)
-        print('Preference {}: {}'.format(i + 1, num_at_pos))
-
-    print('Random: {}'.format(
-        [student['pref_position']
-         for student in student_data
-         if student['pref_position'] == 'random'].count('random')))
+        line = [i + 1, num_at_pos]
+        data.append(line)
+    line = ["random", [student['pref_position'] for student in student_data if student['pref_position'] == 'random'].count('random')]
+    data.append(line)
+    table = tabulate(
+    data, 
+    headers=["Preference number", "Count"], 
+    tablefmt="grid"
+    )
+    print(table)
     print()
     print('Total Score: {}'.format(score))
 
