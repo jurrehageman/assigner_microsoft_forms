@@ -19,6 +19,7 @@ import collections
 import xlsxwriter
 import pandas as pd
 from tabulate import tabulate
+from datetime import datetime
 
 # Set numpy to print entire arrays
 np.set_printoptions(threshold=np.inf)
@@ -224,12 +225,12 @@ def calc_assign_statistics(student_data, exp_data):
         capacity = exp_data[i - 1]['capacity']
         line = [exp_data[i-1]["name"], capacity, ass_freq[i], capacity - ass_freq[i]]
         data.append(line)
-    table = tabulate(
+    table_exp = tabulate(
     data, 
     headers=["Experiment", "Capacity", "Assigned", "Left over"], 
     tablefmt="grid"
     )
-    print(table)
+    print(table_exp)
     print()
     data = []
     for i in range(len(student_data[0]['prefs'])):
@@ -239,14 +240,26 @@ def calc_assign_statistics(student_data, exp_data):
         data.append(line)
     line = ["random", [student['pref_position'] for student in student_data if student['pref_position'] == 'random'].count('random')]
     data.append(line)
-    table = tabulate(
+    table_pref = tabulate(
     data, 
     headers=["Preference number", "Count"], 
     tablefmt="grid"
     )
-    print(table)
+    print(table_pref)
     print()
     print('Total Score: {}'.format(score))
+    #write to log file
+    now = datetime.now()
+    with open("log.txt", "w") as f:
+        f.write("Run on: {}".format(now.strftime("%d/%m/%Y %H:%M:%S")))
+        f.write("\n\n")
+        f.write("Number of students: {}".format(len(student_data)))
+        f.write("\n\n")
+        f.write(table_exp)
+        f.write("\n\n")
+        f.write(table_pref)
+        f.write("\n\n")
+        f.write('Total Score: {}'.format(score))
 
 
 def write_results(student_data, outfile):
@@ -283,7 +296,6 @@ def write_results(student_data, outfile):
         ofile.close()
 
 
-
 def main():
     """
     Main module
@@ -297,8 +309,8 @@ def main():
     exp_matrix = gen_exp_matrix(pref_matrix, exp_data)
     assignment = gen_assignment(exp_matrix, exp_data)
     student_data = add_assign_data(student_data, assignment, exp_data)
-    calc_assign_statistics(student_data, exp_data)
     write_results(student_data, args.outfile)
+    calc_assign_statistics(student_data, exp_data)
     print("Result written to {}".format(args.outfile))
     print("Approximate runtime:", round(time.time() - t0, 2), "sec")
     print("Done...")
